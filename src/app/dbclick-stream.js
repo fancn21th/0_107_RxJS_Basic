@@ -1,12 +1,14 @@
-const dbclickBtn = document.querySelector(".btn-primary[data-tag='dbclick']");
+// refer to basic branch
 
-const clickStream = Rx.Observable.fromEvent(dbclickBtn, "click");
+// const dbclickBtn = document.querySelector(".btn-primary[data-tag='dbclick']");
 
-const doubleClickStream = clickStream
-  .bufferWhen(() => clickStream.debounceTime(250))
-  .map(arr => arr.length)
-  .filter(len => len === 2);
+// const clickStream = Rx.Observable.fromEvent(dbclickBtn, "click");
 
-doubleClickStream.subscribe(event => {
-  console.log("Hooray! I am double clicked!");
-});
+// const doubleClickStream = clickStream
+//   .bufferWhen(() => clickStream.debounceTime(250))
+//   .map(arr => arr.length)
+//   .filter(len => len === 2);
+
+// doubleClickStream.subscribe(event => {
+//   console.log("Hooray! I am double clicked!");
+// });
