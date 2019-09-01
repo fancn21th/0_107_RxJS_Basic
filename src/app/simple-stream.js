@@ -31,18 +31,6 @@ const onSimpleClick = function() {
   result.subscribe(x => console.log(x));
 };
 
-const onDoubleClick = function(btn) {
-  const clickStream = Rx.Observable.fromEvent(btn, "click");
-  const doubleClickStream = clickStream
-    .buffer(() => clickStream.throttle(250))
-    .map(arr => arr.length)
-    .filter(len => len === 2);
-
-  doubleClickStream.subscribe(event =>
-    console.log("Hooray! I'm double clicked!")
-  );
-};
-
 document
   .querySelector(".btn-primary[data-tag='simple']")
   .addEventListener("click", onSimpleClick);
