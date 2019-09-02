@@ -13,7 +13,8 @@ var requestOnRefreshStream = refreshClickStream.map(ev => {
 // but will work just the same.
 var responseStream = startupRequestStream
   .merge(requestOnRefreshStream)
-  .flatMap(requestUrl => Rx.Observable.fromPromise(jQuery.getJSON(requestUrl)));
+  .flatMap(requestUrl => Rx.Observable.fromPromise(jQuery.getJSON(requestUrl)))
+  .shareReplay(1);
 
 function createSuggestionStream(responseStream) {
   return responseStream
