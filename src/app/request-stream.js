@@ -19,8 +19,8 @@ var requestStream = startupRequestStream.merge(requestOnRefreshStream);
 
 var responseStream = requestStream
   .flatMap(requestUrl => Rx.Observable.fromPromise(jQuery.getJSON(requestUrl)))
-  .publishReplay()
-  .refCount(1);
+  .publishReplay() // replay
+  .refCount(1); // shared
 
 // refreshClickStream: -------f------------->
 // requestStream:      r------r------------->
@@ -38,6 +38,8 @@ function createSuggestionStream(responseStream, closeClickStream) {
     .startWith(null)
     .merge(refreshClickStream.map(ev => null))
     .merge(
+      // x: close event
+      // R: response stream - listUsers
       closeClickStream.withLatestFrom(responseStream, (x, R) =>
         getRandomUser(R)
       )
